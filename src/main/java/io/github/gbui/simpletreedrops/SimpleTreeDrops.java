@@ -6,12 +6,10 @@ import net.minecraft.block.BlockOldLeaf;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
@@ -21,10 +19,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
-import net.minecraftforge.fml.common.registry.VillagerRegistry;
-import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
-import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerCareer;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 import java.util.Random;
@@ -33,28 +28,24 @@ import java.util.Random;
 public class SimpleTreeDrops {
     public static final String MODID = "simpletreedrops";
     public static final String NAME = "Simple Tree Drops";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.0.1";
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         for (FruitType fruitType : FruitType.values()) {
             Item fruitItem = fruitType.getItem();
             GameRegistry.register(fruitItem);
+            for (String oreDictName : fruitType.getOreDictNames()) {
+                OreDictionary.registerOre(oreDictName, fruitItem);
+            }
             if (event.getSide().isClient()) {
                 ModelLoader.setCustomModelResourceLocation(fruitItem, 0, new ModelResourceLocation(MODID + ":" + fruitType.getName(), "inventory"));
             }
         }
 
-        addVillagerTrade("minecraft:farmer", 0, 3, new ReplaceAppleWithFruitTrade());
+        VillagerTradeHelper.addVillagerTrade("minecraft:farmer", 0, 3, new ReplaceAppleWithFruitTrade());
 
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    private void addVillagerTrade(String name, int careerID, int careerLevel, EntityVillager.ITradeList... trades) {
-        IForgeRegistry<VillagerProfession> registry = VillagerRegistry.instance().getRegistry();
-        VillagerProfession profession = registry.getValue(new ResourceLocation(name));
-        VillagerCareer career = profession.getCareer(careerID);
-        career.addTrade(careerLevel, trades);
     }
 
     @Mod.EventHandler

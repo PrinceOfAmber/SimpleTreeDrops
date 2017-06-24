@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum FruitType {
-    WALNUTS("walnuts", BlockPlanks.EnumType.SPRUCE),
-    PEACH("peach", BlockPlanks.EnumType.BIRCH),
-    BANANA("banana", BlockPlanks.EnumType.JUNGLE),
-    ORANGE("orange", BlockPlanks.EnumType.ACACIA);
+    WALNUTS("walnuts", BlockPlanks.EnumType.SPRUCE, "cropWalnut"),
+    PEACH("peach", BlockPlanks.EnumType.BIRCH, "cropPeach"),
+    BANANA("banana", BlockPlanks.EnumType.JUNGLE, "cropBanana"),
+    ORANGE("orange", BlockPlanks.EnumType.ACACIA, "cropOrange");
 
     private static final Map<BlockPlanks.EnumType, FruitType> WOOD_TYPE_LOOKUP = new HashMap<BlockPlanks.EnumType, FruitType>();
     private static final Map<ItemFood, FruitType> ITEM_LOOKUP = new HashMap<ItemFood, FruitType>();
@@ -20,10 +20,12 @@ public enum FruitType {
     private final String name;
     private final BlockPlanks.EnumType woodType;
     private final ItemFood item;
+    private final String[] oreDictNames;
 
-    FruitType(String name, BlockPlanks.EnumType woodType) {
+    FruitType(String name, BlockPlanks.EnumType woodType, String... oreDictNames) {
         this.name = name;
         this.woodType = woodType;
+        this.oreDictNames = oreDictNames;
 
         item = new ItemFood(4, 0.3F, false);
         item.setUnlocalizedName(SimpleTreeDrops.MODID + "." + name);
@@ -48,6 +50,10 @@ public enum FruitType {
 
     public ItemStack createItemStack(int amount) {
         return new ItemStack(item, amount);
+    }
+
+    public String[] getOreDictNames() {
+        return oreDictNames;
     }
 
     public static FruitType byWoodType(BlockPlanks.EnumType woodType) {
