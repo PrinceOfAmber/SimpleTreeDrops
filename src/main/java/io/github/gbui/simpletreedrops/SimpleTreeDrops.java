@@ -10,6 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
@@ -24,11 +25,12 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.List;
 import java.util.Random;
 
-@Mod(modid = SimpleTreeDrops.MODID, name = SimpleTreeDrops.NAME, version = SimpleTreeDrops.VERSION, acceptedMinecraftVersions = "*")
+@Mod(modid = SimpleTreeDrops.MODID, name = SimpleTreeDrops.NAME, version = SimpleTreeDrops.VERSION, updateJSON = SimpleTreeDrops.UPDATE_JSON, acceptedMinecraftVersions = "*")
 public class SimpleTreeDrops {
     public static final String MODID = "simpletreedrops";
     public static final String NAME = "Simple Tree Drops";
-    public static final String VERSION = "1.0.1";
+    public static final String VERSION = "1.0.2";
+    public static final String UPDATE_JSON = "https://github.com/gbui/SimpleTreeDrops/raw/updateJSON/updates.json";
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -44,6 +46,14 @@ public class SimpleTreeDrops {
         }
 
         VillagerTradeHelper.addVillagerTrade("minecraft:farmer", 0, 3, new ReplaceAppleWithFruitTrade());
+
+        CustomLootHandler customLootHandler = new CustomLootHandler(MODID, event.getModLog());
+        customLootHandler.registerCustomLootTable(LootTableList.CHESTS_IGLOO_CHEST);
+        customLootHandler.registerCustomLootTable(LootTableList.CHESTS_SPAWN_BONUS_CHEST);
+        customLootHandler.registerCustomLootTable(LootTableList.CHESTS_STRONGHOLD_CORRIDOR);
+        customLootHandler.registerCustomLootTable(LootTableList.CHESTS_STRONGHOLD_CROSSING);
+        customLootHandler.registerCustomLootTable(LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+        MinecraftForge.EVENT_BUS.register(customLootHandler);
 
         MinecraftForge.EVENT_BUS.register(this);
     }

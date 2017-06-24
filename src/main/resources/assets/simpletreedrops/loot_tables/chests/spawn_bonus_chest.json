@@ -1,0 +1,70 @@
+{
+    "pools": [
+        {
+            "name": "pool2",
+            "rolls": 0,
+            "entries": [
+                {
+                    "entryName": "simpletreedrops:walnuts",
+                    "type": "item",
+                    "name": "simpletreedrops:walnuts",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+                {
+                    "entryName": "simpletreedrops:peach",
+                    "type": "item",
+                    "name": "simpletreedrops:peach",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+                {
+                    "entryName": "simpletreedrops:banana",
+                    "type": "item",
+                    "name": "simpletreedrops:banana",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+                {
+                    "entryName": "simpletreedrops:orange",
+                    "type": "item",
+                    "name": "simpletreedrops:orange",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
