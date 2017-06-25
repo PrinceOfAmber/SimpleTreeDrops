@@ -2,3 +2,19 @@ item.simpletreedrops.walnuts.name=Walnuts
 item.simpletreedrops.peach.name=Peach
 item.simpletreedrops.banana.name=Banana
 item.simpletreedrops.orange.name=Orange
+
+simpletreedrops.configgui.title=Simple Tree Drops Configuration
+simpletreedrops.configgui.ctgy.drops=Tree Drops Settings
+simpletreedrops.configgui.ctgy.drops.tooltip=This is where you can disable tree drops added by this mod.
+simpletreedrops.configgui.ctgy.loot=Loot Settings
+simpletreedrops.configgui.ctgy.loot.tooltip=This is where you can disable loot added by this mod.
+
+simpletreedrops.configgui.enableVillagerTrades=Enable Villager Trades
+simpletreedrops.configgui.enableVillagerTrades.tooltip=Set to false to disable villager trades added by this mod.
+simpletreedrops.configgui.addFruitsToOreDict=Add Fruits to Ore Dictionary
+simpletreedrops.configgui.addFruitsToOreDict.tooltip=Set to false to disable registering of fruits to the ore dictionary.
+simpletreedrops.configgui.loot.chests.igloo_chest=Igloo Chests
+simpletreedrops.configgui.loot.chests.spawn_bonus_chest=Bonus Chests
+simpletreedrops.configgui.loot.chests.stronghold_corridor=Stronghold Altar Chests
+simpletreedrops.configgui.loot.chests.stronghold_crossing=Stronghold Storeroom Chests
+simpletreedrops.configgui.loot.chests.village_blacksmith=Village Blacksmith Chests

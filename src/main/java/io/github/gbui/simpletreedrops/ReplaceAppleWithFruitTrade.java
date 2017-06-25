@@ -14,6 +14,9 @@ import java.util.Random;
 public class ReplaceAppleWithFruitTrade implements ITradeList {
     @Override
     public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random) {
+        if (!ConfigHelper.areVillagerTradesEnabled())
+            return;
+
         ListIterator<MerchantRecipe> recipeIterator = recipeList.listIterator();
 
         while (recipeIterator.hasNext()) {
@@ -27,11 +30,12 @@ public class ReplaceAppleWithFruitTrade implements ITradeList {
             FruitType[] fruitTypes = FruitType.values();
             int fruitIndex = random.nextInt(fruitTypes.length + 1);
 
-            if (fruitIndex == fruitTypes.length)
-                break; // Keep apple trade
-
-            FruitType fruitType = fruitTypes[fruitIndex];
-            recipeIterator.set(new MerchantRecipe(recipe.getItemToBuy(), recipe.getSecondItemToBuy(), fruitType.createItemStack(itemStack.getCount())));
+            if (fruitIndex == fruitTypes.length) {
+                // Keep apple trade
+            } else {
+                FruitType fruitType = fruitTypes[fruitIndex];
+                recipeIterator.set(new MerchantRecipe(recipe.getItemToBuy(), recipe.getSecondItemToBuy(), fruitType.createItemStack(itemStack.getCount())));
+            }
 
             break;
         }
