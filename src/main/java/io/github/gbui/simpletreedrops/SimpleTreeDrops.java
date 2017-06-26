@@ -4,9 +4,11 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -14,7 +16,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Logger;
 
@@ -46,20 +47,6 @@ public class SimpleTreeDrops {
 
         ConfigHelper.initConfig(event.getSuggestedConfigurationFile());
 
-        for (FruitType fruitType : FruitType.values()) {
-            Item fruitItem = fruitType.getItem();
-            GameRegistry.register(fruitItem);
-            if (ConfigHelper.shouldAddFruitsToOreDict()) {
-                for (String oreDictName : fruitType.getOreDictNames()) {
-                    OreDictionary.registerOre(oreDictName, fruitItem);
-                }
-            }
-            if (event.getSide().isClient()) {
-                ModelResourceLocation model = new ModelResourceLocation(MODID + ":" + fruitType.getName(), "inventory");
-                ModelLoader.setCustomModelResourceLocation(fruitItem, 0, model);
-            }
-        }
-
         VillagerTradeHelper.addVillagerTrade("minecraft:farmer", 0, 3, new ReplaceAppleWithFruitTrade());
 
         for (ResourceLocation lootName : CUSTOM_LOOT_TABLE_NAMES) {
@@ -74,6 +61,27 @@ public class SimpleTreeDrops {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {}
+
+    @SubscribeEvent
+    public void onItemRegistry(RegistryEvent.Register<Item> event) {
+        for (FruitType fruitType : FruitType.values()) {
+            Item fruitItem = fruitType.getItem();
+            event.getRegistry().register(fruitItem);
+            if (ConfigHelper.shouldAddFruitsToOreDict()) {
+                for (String oreDictName : fruitType.getOreDictNames()) {
+                    OreDictionary.registerOre(oreDictName, fruitItem);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onModelRegistry(ModelRegistryEvent event) {
+        for (FruitType fruitType : FruitType.values()) {
+            ModelResourceLocation model = new ModelResourceLocation(MODID + ":" + fruitType.getName(), "inventory");
+            ModelLoader.setCustomModelResourceLocation(fruitType.getItem(), 0, model);
+        }
+    }
 
     @SubscribeEvent
     public void onConfigChanged(OnConfigChangedEvent event) {

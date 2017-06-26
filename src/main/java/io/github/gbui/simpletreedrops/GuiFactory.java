@@ -18,12 +18,12 @@ public class GuiFactory implements IModGuiFactory {
     @Override
     public void initialize(Minecraft minecraftInstance) {}
 
-    // Added in Forge 1.11.2-13.20.0.2262
+    @Override
     public boolean hasConfigGui() {
         return true;
     }
 
-    // Added in Forge 1.11.2-13.20.0.2262
+    @Override
     public GuiScreen createConfigGui(GuiScreen parentScreen) {
         return new ConfigGui(parentScreen);
     }
