@@ -8,23 +8,25 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConfigHelper {
     public static final String LANGUAGE_KEY_PREFIX = SimpleTreeDrops.MODID + ".configgui.";
 
     private static final String CATEGORY_GENERAL = "general";
     private static final String CATEGORY_DROPS = "drops";
+    private static final String CATEGORY_TRADES = "trades";
     private static final String CATEGORY_LOOT = "loot";
     public static final String[] GENERAL_CATEGORIES = {CATEGORY_GENERAL};
-    public static final String[] SPECIALIZED_CATEGORIES = {CATEGORY_DROPS, CATEGORY_LOOT};
+    public static final String[] SPECIALIZED_CATEGORIES = {CATEGORY_DROPS, CATEGORY_TRADES, CATEGORY_LOOT};
 
-    private static final Map<FruitType, Boolean> SHOULD_DROP_MAP = new HashMap<FruitType, Boolean>();
-    private static final Map<ResourceLocation, Boolean> SHOULD_ADD_CUSTOM_LOOT_MAP = new HashMap<ResourceLocation, Boolean>();
+    private static List<FruitType> droppedFruitList;
+    private static List<FruitType> tradableFruitList;
+    private static List<ResourceLocation> customLootList;
 
     private static Configuration config;
-    private static boolean enableVillagerTrades;
     private static boolean addFruitsToOreDict;
     private static boolean dropSticks;
 
@@ -51,10 +53,6 @@ public class ConfigHelper {
 
         Property property;
 
-        property = config.get(CATEGORY_GENERAL, "enableVillagerTrades", true);
-        property.setLanguageKey(LANGUAGE_KEY_PREFIX + "enableVillagerTrades");
-        enableVillagerTrades = property.getBoolean();
-
         property = config.get(CATEGORY_GENERAL, "addFruitsToOreDict", true);
         property.setLanguageKey(LANGUAGE_KEY_PREFIX + "addFruitsToOreDict");
         property.setRequiresMcRestart(true);
@@ -64,16 +62,30 @@ public class ConfigHelper {
         property.setLanguageKey(Items.STICK.getUnlocalizedName() + ".name");
         dropSticks = property.getBoolean();
 
-        for (FruitType fruitType : FruitType.values()) {
+        FruitType[] fruitTypes = FruitType.values();
+        droppedFruitList = new ArrayList<FruitType>(fruitTypes.length);
+        tradableFruitList = new ArrayList<FruitType>(fruitTypes.length);
+        for (FruitType fruitType : fruitTypes) {
             String fruitName = fruitType.getName();
             Item fruitItem = fruitType.getItem();
             String fruitLanguageKey = fruitItem.getUnlocalizedName() + ".name";
 
             property = config.get(CATEGORY_DROPS, fruitName, true);
             property.setLanguageKey(fruitLanguageKey);
-            SHOULD_DROP_MAP.put(fruitType, property.getBoolean());
-        }
+            if (property.getBoolean()) {
+                droppedFruitList.add(fruitType);
+            }
 
+            property = config.get(CATEGORY_TRADES, fruitName, true);
+            property.setLanguageKey(fruitLanguageKey);
+            if (property.getBoolean()) {
+                tradableFruitList.add(fruitType);
+            }
+        }
+        droppedFruitList = Collections.unmodifiableList(droppedFruitList);
+        tradableFruitList = Collections.unmodifiableList(tradableFruitList);
+
+        customLootList = new ArrayList<ResourceLocation>(SimpleTreeDrops.CUSTOM_LOOT_TABLE_NAMES.length);
         for (ResourceLocation lootName : SimpleTreeDrops.CUSTOM_LOOT_TABLE_NAMES) {
             String lootKey;
             if (lootName.getResourceDomain().equals("minecraft")) {
@@ -85,14 +97,13 @@ public class ConfigHelper {
             property = config.get(CATEGORY_LOOT, lootKey, true);
             property.setLanguageKey(LANGUAGE_KEY_PREFIX + "loot." + lootKey);
             property.setRequiresWorldRestart(true);
-            SHOULD_ADD_CUSTOM_LOOT_MAP.put(lootName, property.getBoolean());
+            if (property.getBoolean()) {
+                customLootList.add(lootName);
+            }
         }
+        customLootList = Collections.unmodifiableList(customLootList);
 
         config.save();
-    }
-
-    public static boolean areVillagerTradesEnabled() {
-        return enableVillagerTrades;
     }
 
     public static boolean shouldAddFruitsToOreDict() {
@@ -103,13 +114,15 @@ public class ConfigHelper {
         return dropSticks;
     }
 
-    public static boolean shouldDropFruit(FruitType fruitType) {
-        Boolean dropFruit = SHOULD_DROP_MAP.get(fruitType);
-        return dropFruit != null && dropFruit;
+    public static List<FruitType> getDroppedFruitList() {
+        return droppedFruitList;
     }
 
-    public static boolean shouldAddCustomLoot(ResourceLocation name) {
-        Boolean addCustomLoot = SHOULD_ADD_CUSTOM_LOOT_MAP.get(name);
-        return addCustomLoot != null && addCustomLoot;
+    public static List<FruitType> getTradableFruitList() {
+        return tradableFruitList;
+    }
+
+    public static List<ResourceLocation> getCustomLootList() {
+        return customLootList;
     }
 }

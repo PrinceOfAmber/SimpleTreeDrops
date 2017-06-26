@@ -8,13 +8,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
 public class ReplaceAppleWithFruitTrade implements ITradeList {
     @Override
     public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random) {
-        if (!ConfigHelper.areVillagerTradesEnabled())
+        List<FruitType> fruitTypes = ConfigHelper.getTradableFruitList();
+        int fruitCount = fruitTypes.size();
+
+        if (fruitCount == 0)
             return;
 
         ListIterator<MerchantRecipe> recipeIterator = recipeList.listIterator();
@@ -27,17 +31,17 @@ public class ReplaceAppleWithFruitTrade implements ITradeList {
             if (item != Items.APPLE)
                 continue;
 
-            FruitType[] fruitTypes = FruitType.values();
-            int fruitIndex = random.nextInt(fruitTypes.length + 1);
+            int fruitIndex = random.nextInt(fruitCount + 1); // Add 1 for apple trade
 
-            if (fruitIndex == fruitTypes.length) {
+            if (fruitIndex == fruitCount) {
                 // Keep apple trade
+                break;
             } else {
-                FruitType fruitType = fruitTypes[fruitIndex];
-                recipeIterator.set(new MerchantRecipe(recipe.getItemToBuy(), recipe.getSecondItemToBuy(), fruitType.createItemStack(itemStack.getCount())));
+                FruitType fruitType = fruitTypes.get(fruitIndex);
+                ItemStack fruitStack = fruitType.createItemStack(itemStack.getCount());
+                recipeIterator.set(new MerchantRecipe(recipe.getItemToBuy(), recipe.getSecondItemToBuy(), fruitStack));
+                break;
             }
-
-            break;
         }
     }
 }

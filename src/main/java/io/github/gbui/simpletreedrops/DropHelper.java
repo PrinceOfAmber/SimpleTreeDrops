@@ -41,7 +41,7 @@ public class DropHelper {
 
     private static void addFruitDrop(BlockPlanks.EnumType woodType, Random random, int fortune, List<ItemStack> drops) {
         FruitType fruitType = FruitType.byWoodType(woodType);
-        if (fruitType != null && ConfigHelper.shouldDropFruit(fruitType)) {
+        if (fruitType != null && ConfigHelper.getDroppedFruitList().contains(fruitType)) {
             addDrop(fruitType.createItemStack(), random, 200, 40, fortune, 10, drops);
         }
     }

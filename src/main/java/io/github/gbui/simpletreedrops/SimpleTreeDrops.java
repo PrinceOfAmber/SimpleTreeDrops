@@ -49,8 +49,8 @@ public class SimpleTreeDrops {
         for (FruitType fruitType : FruitType.values()) {
             Item fruitItem = fruitType.getItem();
             GameRegistry.register(fruitItem);
-            for (String oreDictName : fruitType.getOreDictNames()) {
-                if (ConfigHelper.shouldAddFruitsToOreDict()) {
+            if (ConfigHelper.shouldAddFruitsToOreDict()) {
+                for (String oreDictName : fruitType.getOreDictNames()) {
                     OreDictionary.registerOre(oreDictName, fruitItem);
                 }
             }

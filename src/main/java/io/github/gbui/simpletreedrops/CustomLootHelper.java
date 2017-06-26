@@ -31,7 +31,7 @@ public class CustomLootHelper {
     }
 
     public static void loadCustomLoot(ResourceLocation originalName, LootTable originalTable) {
-        if (!ConfigHelper.shouldAddCustomLoot(originalName)) {
+        if (!ConfigHelper.getCustomLootList().contains(originalName)) {
             return;
         }
 

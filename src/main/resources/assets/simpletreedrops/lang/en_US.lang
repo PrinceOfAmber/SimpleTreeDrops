@@ -6,11 +6,11 @@ item.simpletreedrops.orange.name=Orange
 simpletreedrops.configgui.title=Simple Tree Drops Configuration
 simpletreedrops.configgui.ctgy.drops=Tree Drops Settings
 simpletreedrops.configgui.ctgy.drops.tooltip=This is where you can disable tree drops added by this mod.
+simpletreedrops.configgui.ctgy.trades=Villager Trades Settings
+simpletreedrops.configgui.ctgy.trades.tooltip=This is where you can disable villager trades added by this mod.
 simpletreedrops.configgui.ctgy.loot=Loot Settings
 simpletreedrops.configgui.ctgy.loot.tooltip=This is where you can disable loot added by this mod.
 
-simpletreedrops.configgui.enableVillagerTrades=Enable Villager Trades
-simpletreedrops.configgui.enableVillagerTrades.tooltip=Set to false to disable villager trades added by this mod.
 simpletreedrops.configgui.addFruitsToOreDict=Add Fruits to Ore Dictionary
 simpletreedrops.configgui.addFruitsToOreDict.tooltip=Set to false to disable registering of fruits to the ore dictionary.
 simpletreedrops.configgui.loot.chests.igloo_chest=Igloo Chests
