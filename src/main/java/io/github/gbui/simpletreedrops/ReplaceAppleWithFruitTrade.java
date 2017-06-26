@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class ReplaceAppleWithFruitTrade implements ITradeList {
     @Override
-    public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random) {
+    public void modifyMerchantRecipeList(MerchantRecipeList recipeList, Random random) {
         List<FruitType> fruitTypes = ConfigHelper.getTradableFruitList();
         int fruitCount = fruitTypes.size();
 
@@ -38,7 +38,7 @@ public class ReplaceAppleWithFruitTrade implements ITradeList {
                 break;
             } else {
                 FruitType fruitType = fruitTypes.get(fruitIndex);
-                ItemStack fruitStack = fruitType.createItemStack(itemStack.getCount());
+                ItemStack fruitStack = fruitType.createItemStack(itemStack.stackSize);
                 recipeIterator.set(new MerchantRecipe(recipe.getItemToBuy(), recipe.getSecondItemToBuy(), fruitStack));
                 break;
             }
