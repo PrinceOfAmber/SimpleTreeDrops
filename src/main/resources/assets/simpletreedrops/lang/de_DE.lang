@@ -1,0 +1,20 @@
+item.simpletreedrops.walnuts.name=Walnüsse
+item.simpletreedrops.peach.name=Pfirsich
+item.simpletreedrops.banana.name=Banane
+item.simpletreedrops.orange.name=Orange
+
+simpletreedrops.configgui.title=Simple Tree Drops-Konfiguration
+simpletreedrops.configgui.ctgy.drops=Baumdrop-Einstellungen
+simpletreedrops.configgui.ctgy.drops.tooltip=Hier kannst du die Baumdrops dieser Modifikation deaktivieren.
+simpletreedrops.configgui.ctgy.trades=Dorfbewohnerhandel-Einstellungen
+simpletreedrops.configgui.ctgy.trades.tooltip=Hier kannst du die Dorfbewohner-Angebote dieser Modifikation deaktivieren.
+simpletreedrops.configgui.ctgy.loot=Beute-Einstellungen
+simpletreedrops.configgui.ctgy.loot.tooltip=Hier kannst du die Beute dieser Modifikation deaktivieren.
+
+simpletreedrops.configgui.addFruitsToOreDict=Früchte zur Ore Dictionary hinzufügen
+simpletreedrops.configgui.addFruitsToOreDict.tooltip=Auf false setzen, um die Registrierung von Früchten zur Ore Dictionary zu deaktivieren.
+simpletreedrops.configgui.loot.chests.igloo_chest=Iglu-Truhen
+simpletreedrops.configgui.loot.chests.spawn_bonus_chest=Bonus-Truhen
+simpletreedrops.configgui.loot.chests.stronghold_corridor=Festungsaltar-Truhen
+simpletreedrops.configgui.loot.chests.stronghold_crossing=Festungslagerraum-Truhen
+simpletreedrops.configgui.loot.chests.village_blacksmith=Dorfschmied-Truhen
