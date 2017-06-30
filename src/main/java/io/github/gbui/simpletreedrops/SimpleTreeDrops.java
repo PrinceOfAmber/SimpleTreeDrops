@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 public class SimpleTreeDrops {
     public static final String MODID = "simpletreedrops";
     public static final String NAME = "Simple Tree Drops";
-    public static final String VERSION = "1.0.3";
+    public static final String VERSION = "1.0.4";
     public static final String UPDATE_JSON = "https://github.com/gbui/SimpleTreeDrops/raw/updateJSON/updates.json";
     public static final String GUI_FACTORY = "io.github.gbui.simpletreedrops.GuiFactory";
 
