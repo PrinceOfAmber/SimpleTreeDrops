@@ -90,7 +90,7 @@ public class SimpleTreeDrops {
 
     @SubscribeEvent
     public void onLoadLootTable(LootTableLoadEvent event) {
-        CustomLootHelper.loadCustomLoot(event.getName(), event.getTable());
+        CustomLootHelper.loadCustomLoot(event.getName(), event.getTable(), event.getLootTableManager());
     }
 
     @SubscribeEvent

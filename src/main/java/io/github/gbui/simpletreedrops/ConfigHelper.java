@@ -63,8 +63,8 @@ public class ConfigHelper {
         dropSticks = property.getBoolean();
 
         FruitType[] fruitTypes = FruitType.values();
-        droppedFruitList = new ArrayList<FruitType>(fruitTypes.length);
-        tradableFruitList = new ArrayList<FruitType>(fruitTypes.length);
+        droppedFruitList = new ArrayList<>(fruitTypes.length);
+        tradableFruitList = new ArrayList<>(fruitTypes.length);
         for (FruitType fruitType : fruitTypes) {
             String fruitName = fruitType.getName();
             Item fruitItem = fruitType.getItem();
@@ -85,7 +85,7 @@ public class ConfigHelper {
         droppedFruitList = Collections.unmodifiableList(droppedFruitList);
         tradableFruitList = Collections.unmodifiableList(tradableFruitList);
 
-        customLootList = new ArrayList<ResourceLocation>(SimpleTreeDrops.CUSTOM_LOOT_TABLE_NAMES.length);
+        customLootList = new ArrayList<>(SimpleTreeDrops.CUSTOM_LOOT_TABLE_NAMES.length);
         for (ResourceLocation lootName : SimpleTreeDrops.CUSTOM_LOOT_TABLE_NAMES) {
             String lootKey;
             if (lootName.getResourceDomain().equals("minecraft")) {

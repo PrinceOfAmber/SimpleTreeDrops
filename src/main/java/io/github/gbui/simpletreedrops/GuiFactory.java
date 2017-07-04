@@ -29,18 +29,7 @@ public class GuiFactory implements IModGuiFactory {
     }
 
     @Override
-    public Class<? extends GuiScreen> mainConfigGuiClass() {
-        return ConfigGui.class;
-    }
-
-    @Override
     public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element) {
         return null;
     }
 
@@ -50,7 +39,7 @@ public class GuiFactory implements IModGuiFactory {
         }
 
         private static List<IConfigElement> getConfigElements() {
-            List<IConfigElement> list = new ArrayList<IConfigElement>();
+            List<IConfigElement> list = new ArrayList<>();
             Configuration config = ConfigHelper.getConfig();
             for (String categoryName : ConfigHelper.GENERAL_CATEGORIES) {
                 ConfigElement configElement = new ConfigElement(config.getCategory(categoryName));

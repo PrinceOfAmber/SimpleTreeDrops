@@ -14,8 +14,8 @@ public enum FruitType {
     BANANA("banana", BlockPlanks.EnumType.JUNGLE, "cropBanana"),
     ORANGE("orange", BlockPlanks.EnumType.ACACIA, "cropOrange");
 
-    private static final Map<BlockPlanks.EnumType, FruitType> WOOD_TYPE_LOOKUP = new HashMap<BlockPlanks.EnumType, FruitType>();
-    private static final Map<ItemFood, FruitType> ITEM_LOOKUP = new HashMap<ItemFood, FruitType>();
+    private static final Map<BlockPlanks.EnumType, FruitType> WOOD_TYPE_LOOKUP = new HashMap<>();
+    private static final Map<ItemFood, FruitType> ITEM_LOOKUP = new HashMap<>();
 
     private final String name;
     private final BlockPlanks.EnumType woodType;
